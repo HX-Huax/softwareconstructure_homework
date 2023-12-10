@@ -174,7 +174,7 @@ class _ArithmeticHomePageState extends State<ArithmeticHomePage> {
   String question = generateQuestion();
   String questionWithoutAnswer = '';
   int score = 0;
-  var sta;
+  var sta='';
   final answerController = TextEditingController();
 
   void checkAnswer() {
@@ -184,7 +184,8 @@ class _ArithmeticHomePageState extends State<ArithmeticHomePage> {
       // print(answerController.text);
       score++;
     }
-    print(answerController.text);
+    
+    // print(answerController.text);
     // 检查后，生成一个新问题。
     setState(() {
       question = generateQuestion();
@@ -200,6 +201,8 @@ class _ArithmeticHomePageState extends State<ArithmeticHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('算术练习 '),
+        leading: Icon(Icons.home),
+        backgroundColor: Colors.blue[100],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -227,11 +230,26 @@ class _ArithmeticHomePageState extends State<ArithmeticHomePage> {
           ElevatedButton(
             onPressed: checkAnswer,
             child: const Text('提交'),
+            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue[100]),
+            foregroundColor: MaterialStateProperty.all(Colors.black),
+            overlayColor: MaterialStateProperty.all(Colors.blue[600])
+            ),
           ),
-          Text(
-            'Score: $score',
-          ),
-          Text('Statul $sta')
+          Text('Statul $sta'),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Text(
+                    'Score: $score',
+                  )
+                ]
+              )
+            ],
+          )
         ],
       ),
       //TODO 添加Score分数显示在界面右上角

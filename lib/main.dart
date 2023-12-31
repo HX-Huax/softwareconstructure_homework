@@ -140,7 +140,8 @@ String generateQuestion() {
           : operator == '*'
               ? number1 * number2
               : number1 ~/ number2;
-  String out = '${number1.toStringAsFixed(2)} $operator ${number2.toStringAsFixed(2)} ${answer.toStringAsFixed(2)}';
+  String out =
+      '${number1.toStringAsFixed(2)} $operator ${number2.toStringAsFixed(2)} ${answer.toStringAsFixed(2)}';
   return out;
 }
 
@@ -156,7 +157,7 @@ class ArithmeticApp extends StatelessWidget {
     return MaterialApp(
       title: '算术练习',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
       ),
       home: const ArithmeticHomePage(),
     );
@@ -165,8 +166,8 @@ class ArithmeticApp extends StatelessWidget {
 
 class ArithmeticHomePage extends StatefulWidget {
   const ArithmeticHomePage({super.key});
-
   @override
+  // ignore: library_private_types_in_public_api
   _ArithmeticHomePageState createState() => _ArithmeticHomePageState();
 }
 
@@ -174,7 +175,7 @@ class _ArithmeticHomePageState extends State<ArithmeticHomePage> {
   String question = generateQuestion();
   String questionWithoutAnswer = '';
   int score = 0;
-  var sta='';
+  var sta = '';
   final answerController = TextEditingController();
 
   void checkAnswer() {
@@ -184,7 +185,7 @@ class _ArithmeticHomePageState extends State<ArithmeticHomePage> {
       // print(answerController.text);
       score++;
     }
-    
+
     // print(answerController.text);
     // 检查后，生成一个新问题。
     setState(() {
@@ -201,58 +202,111 @@ class _ArithmeticHomePageState extends State<ArithmeticHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('算术练习 '),
-        leading: Icon(Icons.home),
+        leading: const Icon(Icons.home),
         backgroundColor: Colors.blue[100],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(
-            '解决下面的题目：',
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          Text(
-            questionWithoutAnswer,
-            style: Theme.of(context).textTheme.displayMedium,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: answerController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (value) => checkAnswer(),
-              decoration: const InputDecoration(
-                labelText: '你的答案',
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: checkAnswer,
-            child: const Text('提交'),
-            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue[100]),
-            foregroundColor: MaterialStateProperty.all(Colors.black),
-            overlayColor: MaterialStateProperty.all(Colors.blue[600])
-            ),
-          ),
-          Text('Statul $sta'),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.start,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    'Score: $score',
-                  )
-                ]
-              )
+              Container(
+                child: TextButton(
+                  onPressed: () {
+                    
+                  }
+                  ,
+                  child: Text(
+                  "结果分析",
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+                  textAlign: TextAlign.center,
+
+                ),
+                ),
+                height: 50,
+                width: 100,
+              ),
+              Container(
+                
+                height: 50,
+                width: 100,
+                child: TextButton(
+                  onPressed: () {
+                    
+                  }
+                  ,
+                  child: Text(
+                  "生成试题集",
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+                  textAlign: TextAlign.center,
+                ),
+                )
+                
+              ),
             ],
-          )
+          ),
+          // ListView(
+          //   shrinkWrap: true,
+          //   children: <Widget>[
+          //     Text(
+          //       question,
+          //     ),
+          //     TextField(
+          //       controller: answerController,
+          //     )
+          //   ]
+          // )
+          
+          // Padding(
+          //   padding: const EdgeInsets.all(16.0),
+          //   child: TextField(
+          //     controller: answerController,
+          //     keyboardType: TextInputType.number,
+          //     onSubmitted: (value) => checkAnswer(),
+          //     decoration: const InputDecoration(
+          //       labelText: '你的答案',
+          //       border: OutlineInputBorder(),
+          //     ),
+          //   ),
+          // ),
+          // ElevatedButton(
+          //   onPressed: checkAnswer,
+          //   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue[100]),
+          //   foregroundColor: MaterialStateProperty.all(Colors.black),
+          //   overlayColor: MaterialStateProperty.all(Colors.blue[600])
+          //   ),
+          //   child: const Text('提交'),
+          // ),
+          // Text('Statul $sta'),
+          // Row(
+          //   // crossAxisAlignment: CrossAxisAlignment.end,
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: <Widget>[
+          //     Column(
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       // crossAxisAlignment: CrossAxisAlignment.end,
+          //       children: <Widget>[
+          //         Text(
+          //           'Score: $score',
+          //         )
+          //       ]
+          //     ),
+          //     Column(
+          //       mainAxisAlignment: MainAxisAlignment.end,
+          //       children: <Widget>[
+
+          //         Text(
+
+          //           'Score: $score',
+          //         )
+          //       ]
+          //     )
+          //   ],
+          // )
         ],
       ),
-      //TODO 添加Score分数显示在界面右上角
+      //TODO: 添加Score分数显示在界面右上角
     );
   }
 }
